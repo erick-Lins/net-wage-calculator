@@ -1,13 +1,16 @@
-﻿public class Employee
+﻿using System.IO;
+public class Employee
 {
+    public string Name { get; set; }
     public string WorkShift { get; set; }
     public string Category { get; set; }
     public double MinimumWage { get; set; }
     public double HoursWorkedPerMonth { get; set; }
     private double GrossSalary { get; set; }
 
-    public Employee(string workShift, string category, double minimumWage, double hoursWorkedPerMonth)
+    public Employee(string name,string workShift, string category, double minimumWage, double hoursWorkedPerMonth)
     {
+        Name = name;
         WorkShift = workShift;
         Category = category;
         MinimumWage = minimumWage;
@@ -71,12 +74,12 @@
 
     public void ShowInfosAbouJob()
     {
-        double grossSalary = CalculateGrossSalary();
+        GrossSalary = CalculateGrossSalary();
 
         Console.WriteLine($"Coefficient: {CalculateCoefficient():C2}");
-        Console.WriteLine($"\nGross Salary: {grossSalary:C2}");
+        Console.WriteLine($"Gross Salary: {GrossSalary:C2}");
 
-        double taxAmount = CalculateTax(grossSalary,Category);
+        double taxAmount = CalculateTax(GrossSalary, Category);
         Console.WriteLine($"Taxes: {taxAmount:C2}");
 
         double gratification = CalculateGratification();
@@ -85,9 +88,15 @@
         double mealAllowance = CalculateMealAllowance();
         Console.WriteLine($"Meal Allowance: {mealAllowance:C2}");
 
-        double netWage = CalculateNetWage(grossSalary, taxAmount, gratification, mealAllowance);
+        double netWage = CalculateNetWage(GrossSalary, taxAmount, gratification, mealAllowance);
         Console.WriteLine($"=====\nTotal Net Wage: {netWage:C2}");
+        Console.WriteLine("");
     }
 
-    
+    public string Serialize()
+    {
+        return $"{Name},{WorkShift},{Category},{MinimumWage},{HoursWorkedPerMonth}";
+    }
+
+
 }
