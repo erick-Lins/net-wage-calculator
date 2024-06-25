@@ -122,10 +122,10 @@ namespace ConsoleApp1
             Console.Write("Response: ");
             int response = Convert.ToInt32(Console.ReadLine());
 
-            //if (response < 1 || response > employees.Count)
-            //{
-            //    throw new Exception("Invalid response, insert a number based on the list range!");
-            //}
+            if (response < 1 || response > fileProperties.Length)
+            {
+                throw new Exception("Invalid response, insert a number based on the list range!");
+            }
 
             Employee property = employeeList[lineIndex - 1];
             
